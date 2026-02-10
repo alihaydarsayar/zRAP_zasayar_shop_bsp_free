@@ -1,0 +1,135 @@
+<mvc:View
+    controllerName="com.asayar.zasayarshopbspfree.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:m="sap.m"
+>
+    <ObjectPageLayout
+        id="ObjectPageLayout"
+        showTitleInHeaderContent="true"
+        showFooter="true"
+    >
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+                <expandedHeading>
+                    <m:Title
+                        text="Sipariş Detayı"
+                        wrapping="true"
+                    />
+                </expandedHeading>
+                <snappedHeading>
+                    <m:Title
+                        text="Sipariş Detayı"
+                        wrapping="true"
+                    />
+                </snappedHeading>
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+
+        <sections>
+            <ObjectPageSection title="Genel">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <smartForm:SmartForm
+                                id="smartForm"
+                                editable="true"
+                                title="Bilgiler"
+                            >
+                                <smartForm:Group label="Sipariş Verileri">
+                                    <smartForm:GroupElement>
+                                        <smartField:SmartField
+                                            value="{OrderId}"
+                                        />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement>
+                                        <smartField:SmartField
+                                            value="{CustomerName}"
+                                        />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement>
+                                        <smartField:SmartField
+                                            value="{TotalAmount}"
+                                        />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement>
+                                        <smartField:SmartField
+                                            value="{OrderStatus}"
+                                        />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement>
+                                        <smartField:SmartField
+                                            value="{OrderNote}"
+                                        />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement>
+                                        <smartField:SmartField
+                                            value="{DeliveryDate}"
+                                        />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement>
+                                        <smartField:SmartField
+                                            value="{CreationDate}"
+                                        />
+                                    </smartForm:GroupElement>
+                                </smartForm:Group>
+                            </smartForm:SmartForm>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <ObjectPageSection title="Kalemler">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <smartTable:SmartTable
+                                id="ItemsSmartTable"
+                                entitySet="online_shopitem"
+                                tableBindingPath="_Items"
+                                tableType="ResponsiveTable"
+                                useExportToExcel="true"
+                                useVariantManagement="false"
+                                useTablePersonalisation="true"
+                                header="Sipariş Kalemleri"
+                                showRowCount="true"
+                                enableAutoBinding="true"
+                                class="sapUiResponsiveContentPadding"
+                            >
+                                <m:Table>
+                                    <m:columns>
+                                        <!-- Columns will be auto-generated from metadata -->
+                                    </m:columns>
+                                </m:Table>
+                            </smartTable:SmartTable>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+
+        <footer>
+            <m:OverflowToolbar>
+                <m:ToolbarSpacer />
+                <m:Button
+                    type="Emphasized"
+                    text="Kaydet"
+                    press=".onSave"
+                />
+                <m:Button
+                    text="Beşiktaş"
+                    press=".onBesiktas"
+                    type="Default"
+                />
+                <m:Button
+                    text="John Lennon"
+                    press=".onJohnLennon"
+                    type="Default"
+                />
+            </m:OverflowToolbar>
+        </footer>
+    </ObjectPageLayout>
+</mvc:View>

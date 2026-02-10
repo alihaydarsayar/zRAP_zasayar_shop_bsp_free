@@ -1,6 +1,52 @@
 <mvc:View controllerName="com.asayar.zasayarshopbspfree.controller.Main"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-    </Page>
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable">
+
+    <f:DynamicPage id="dynamicPage" fitContent="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Sipariş Listesi"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <smartFilterBar:SmartFilterBar id="smartFilterBar" 
+                    entitySet="online_shop" 
+                    persistencyKey="SmartFilter_Explored">
+                </smartFilterBar:SmartFilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <smartTable:SmartTable id="smartTable" 
+                entitySet="online_shop" 
+                smartFilterId="smartFilterBar" 
+                tableType="ResponsiveTable" 
+                useExportToExcel="true" 
+                useVariantManagement="true" 
+                useTablePersonalisation="true" 
+                header="Siparişler" 
+                showRowCount="true" 
+                enableAutoBinding="true"
+                requestAtLeastFields="OrderUuid"> 
+                
+                <smartTable:customToolbar>
+                    <OverflowToolbar design="Transparent">
+                        <ToolbarSpacer/>
+                        <Button text="Yeni Sipariş" press=".onCreate" type="Emphasized"/>
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+
+                <Table id="innerTable" 
+                       sticky="ColumnHeaders" 
+                       itemPress=".onPressItem" 
+                       updateFinished=".onListUpdateFinished"
+                       mode="SingleSelectMaster" />
+            </smartTable:SmartTable>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>

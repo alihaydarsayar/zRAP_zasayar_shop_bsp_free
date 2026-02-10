@@ -1,5 +1,5 @@
 {
-  "_version": "1.76.0",
+  "_version": "1.12.0",
   "sap.app": {
     "id": "com.asayar.zasayarshopbspfree",
     "type": "application",
@@ -9,12 +9,6 @@
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
-    "resources": "resources.json",
-    "sourceTemplate": {
-      "id": "@sap/generator-fiori:basic",
-      "version": "1.19.5",
-      "toolsId": "34dc7082-5155-422e-8e51-e442a3d9846d"
-    },
     "dataSources": {
       "Z_AHS_VAN": {
         "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='Z_AHS_VAN',Version='0001')/$value/",
@@ -30,7 +24,6 @@
           "annotations": [
             "Z_AHS_VAN"
           ],
-          "localUri": "localService/mainService/metadata.xml",
           "odataVersion": "2.0"
         }
       }
@@ -42,9 +35,7 @@
       "icon": "",
       "favIcon": "",
       "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
+      "tablet": ""
     },
     "deviceTypes": {
       "desktop": true,
@@ -53,12 +44,22 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
+    "rootView": {
+      "viewName": "com.asayar.zasayarshopbspfree.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    },
     "dependencies": {
-      "minUI5Version": "1.142.5",
+      "minUI5Version": "1.120.0",
       "libs": {
+        "sap.ui.core": {},
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.f": {},
+        "sap.ushell": {},
+        "sap.ui.comp": {},
+        "sap.uxap": {}
       }
     },
     "contentDensities": {
@@ -75,27 +76,23 @@
       "": {
         "dataSource": "mainService",
         "preload": true,
-        "settings": {}
-      }
-    },
-    "resources": {
-      "css": [
-        {
-          "uri": "css/style.css"
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false
         }
-      ]
+      }
     },
     "routing": {
       "config": {
         "routerClass": "sap.m.routing.Router",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "transition": "slide",
-        "type": "View",
         "viewType": "XML",
-        "path": "com.asayar.zasayarshopbspfree.view",
         "async": true,
-        "viewPath": "com.asayar.zasayarshopbspfree.view"
+        "viewPath": "com.asayar.zasayarshopbspfree.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "transition": "slide"
       },
       "routes": [
         {
@@ -104,20 +101,31 @@
           "target": [
             "TargetMain"
           ]
+        },
+        {
+          "name": "RouteDetail",
+          "pattern": "Order/{OrderUuid}",
+          "target": [
+            "TargetDetail"
+          ]
         }
       ],
       "targets": {
         "TargetMain": {
-          "id": "Main",
-          "name": "Main"
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Main",
+          "viewName": "Main"
+        },
+        "TargetDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Detail",
+          "viewName": "Detail"
         }
       }
-    },
-    "rootView": {
-      "viewName": "com.asayar.zasayarshopbspfree.view.App",
-      "type": "XML",
-      "id": "App",
-      "async": true
     }
   }
 }
