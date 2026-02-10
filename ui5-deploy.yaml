@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "3.1"
+metadata:
+  name: com.asayar.zasayarshopbspfree
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: https://my407042.s4hana.cloud.sap/
+          authenticationType: reentranceTicket # SAML support for vscode
+        app:
+          name: ZASAYAR_SHP_FRE
+          package: Z_PURCHASE_REQ_FIORI
+          transport: ZBIK900241
+        exclude:
+          - /test/
