@@ -36,41 +36,47 @@
                         <blocks>
                             <smartForm:SmartForm
                                 id="smartForm"
-                                editable="true"
+                                editable="{viewModel>/editable}"
                                 title="Bilgiler"
                             >
                                 <smartForm:Group label="Sipariş Verileri">
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Sipariş No">
                                         <smartField:SmartField
                                             value="{OrderId}"
                                         />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Müşteri Adı">
                                         <smartField:SmartField
                                             value="{CustomerName}"
                                         />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement
+                                        label="Toplam Tutar"
+                                    >
                                         <smartField:SmartField
                                             value="{TotalAmount}"
                                         />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Durum">
                                         <smartField:SmartField
                                             value="{OrderStatus}"
                                         />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Not">
                                         <smartField:SmartField
                                             value="{OrderNote}"
                                         />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement
+                                        label="Teslimat Tarihi"
+                                    >
                                         <smartField:SmartField
                                             value="{DeliveryDate}"
                                         />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement
+                                        label="Oluşturma Tarihi"
+                                    >
                                         <smartField:SmartField
                                             value="{CreationDate}"
                                         />
@@ -89,7 +95,7 @@
                             <smartTable:SmartTable
                                 id="ItemsSmartTable"
                                 entitySet="online_shopitem"
-                                tableBindingPath="_Items"
+                                tableBindingPath="to_Items"
                                 tableType="ResponsiveTable"
                                 useExportToExcel="true"
                                 useVariantManagement="false"
@@ -97,8 +103,21 @@
                                 header="Sipariş Kalemleri"
                                 showRowCount="true"
                                 enableAutoBinding="true"
+                                editable="{viewModel>/editable}"
                                 class="sapUiResponsiveContentPadding"
                             >
+                                <smartTable:customToolbar>
+                                    <m:OverflowToolbar design="Transparent">
+                                        <m:ToolbarSpacer />
+                                        <m:Button
+                                            text="Kalem Ekle"
+                                            icon="sap-icon://add"
+                                            press=".onAddItem"
+                                            type="Transparent"
+                                            visible="{viewModel>/editable}"
+                                        />
+                                    </m:OverflowToolbar>
+                                </smartTable:customToolbar>
                                 <m:Table>
                                     <m:columns>
                                         <!-- Columns will be auto-generated from metadata -->
@@ -115,9 +134,22 @@
             <m:OverflowToolbar>
                 <m:ToolbarSpacer />
                 <m:Button
+                    text="Düzenle"
+                    press=".onEdit"
+                    type="Emphasized"
+                    visible="{= !${viewModel>/editable}}"
+                />
+                <m:Button
+                    text="İptal"
+                    press=".onCancel"
+                    type="Reject"
+                    visible="{viewModel>/editable}"
+                />
+                <m:Button
                     type="Emphasized"
                     text="Kaydet"
                     press=".onSave"
+                    visible="{viewModel>/editable}"
                 />
                 <m:Button
                     text="Beşiktaş"
